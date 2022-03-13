@@ -2,6 +2,10 @@ import { useMutation, useQuery, gql } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Container, Main } from "../components/styled";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
+// import LikeButton from "../components/LikeButton";
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
@@ -21,25 +25,13 @@ const GET_MOVIE = gql`
   }
 `;
 
-const LIKE_MOIVE = gql`
-  mutation likeMovie($id: Int!) {
-    likeMovie(id: $id) @client
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direciton: column;
-  margin: 0 auto;
-`;
-
-const Loading = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-`;
+// const Loading = styled.div`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   font-size: 20px;
+//   transform: translate(-50%, -50%);
+// `;
 
 const Content = styled.div`
   padding: 8px;
@@ -67,22 +59,29 @@ function Detail() {
   const { loading, data } = useQuery(GET_MOVIE, {
     variables: { id: parseInt(id) },
   });
-  const [likeMovie] = useMutation(LIKE_MOIVE, { variables: { id: id } });
 
   return (
     <Container>
-      <Content>
-        <Title>{data?.movie?.title}</Title>
-        {loading || <Subtitle>English &bull; {data?.movie?.rating}</Subtitle>}
-        <Description>{data?.movie?.description_intro}</Description>
-        <div>
-          <button onClick={likeMovie}>
-            {data?.movie?.isLiked ? "Unlike" : "Like"}
-          </button>
-        </div>
-      </Content>
-      <Poster src={data?.movie?.medium_cover_image} alt={data?.movie?.title} />
-      {loading && <Loading>...Loading</Loading>}
+      <Header title="Apollo Movies" />
+      <Main>
+        {!loading && (
+          <Content>
+            <Title>{data?.movie?.title}</Title>
+            <Subtitle>English &bull; {data?.movie?.rating}</Subtitle>
+            <Description>{data?.movie?.description_intro}</Description>
+            {/* <div>
+              <LikeButton id={data?.id} isLiked={data?.isLiked} />
+            </div> */}
+          </Content>
+        )}
+        {!loading && (
+          <Poster
+            src={data?.movie?.medium_cover_image}
+            alt={data?.movie?.title}
+          />
+        )}
+        {loading && <Loading type={"spinningBubbles"} size={60} />}
+      </Main>
     </Container>
   );
 }

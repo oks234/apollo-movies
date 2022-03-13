@@ -1,7 +1,10 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
+import { Container, Main } from "../components/styled";
 import Movie from "../components/Movie";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
 
 const GET_MOVIES = gql`
   query getMovies($limit: Int, $rating: Float) {
@@ -14,34 +17,17 @@ const GET_MOVIES = gql`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Header = styled.header`
-  padding: 50px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 60px;
-  font-weight: 600;
-  margin-bottom: 20px;
-`;
-
-const Loading = styled.div`
-  font-size: 20px;
-`;
+// const Loading = styled.div`
+//   font-size: 20px;
+// `;
 
 const Movies = styled.div`
   display: grid;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 8px;
   grid-template-columns: repeat(2, 1fr);
-  max-width: 600px;
+  /* max-width: 600px; */
 `;
 
 const Home = () => {
@@ -51,14 +37,18 @@ const Home = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Apollo Movies</Title>
-      </Header>
-      {loading && <Loading>Loading...</Loading>}
-      <Movies>
-        {!loading &&
-          data?.movies?.map((movie) => <Movie key={movie.id} {...movie} />)}
-      </Movies>
+      <Header title="Apollo Movies" />
+      <Main>
+        {loading ? (
+          <Loading type={"spinningBubbles"} size={60} />
+        ) : (
+          <Movies>
+            {data?.movies?.map((movie) => (
+              <Movie key={movie.id} {...movie} />
+            ))}
+          </Movies>
+        )}
+      </Main>
     </Container>
   );
 };

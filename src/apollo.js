@@ -8,7 +8,7 @@ const client = new ApolloClient({
       isLiked: () => false,
     },
     Mutation: {
-      likeMovie: (_, { id }, { cache }) => {
+      toggleMovieLike: (_, { id }, { cache }) => {
         cache.modify({
           id: `Movie:${id}`,
           fields: {
