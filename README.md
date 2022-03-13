@@ -13,3 +13,5 @@ Moive app built with React, Apollo and GraphQL
 스타일링
 
 네비게이션
+
+배포(heroku)
