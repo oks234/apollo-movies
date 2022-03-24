@@ -8,6 +8,13 @@ Moive app built with React, Apollo and GraphQL.
 
 ## 히스토리
 
+### 2022. 3. 24.
+
+- 영화 목록 genre Sci-Fi로 필터, year로 정렬
+- Home Page에 Google Material Design > Layout 반영
+- Detail Page에 Home Link 추가
+- Loading Icon 개선
+
 ### 2022. 3. 13.
 
 시작! 종료!
