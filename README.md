@@ -14,13 +14,17 @@ Moive app built with React, Apollo and GraphQL.
 
 ## Todos
 
-스타일링
+✅ Home Page 스타일링
 
-네비게이션
+Home Page - 사진 hover 시 Detail 보여주기
+
+Detail Page Suggestions 추가
+
+Detail Page 스타일링
+
+✅ 네비게이션
 
 ✅ 배포(heroku)
-
-Suggestions
 
 ## Color Sheme
 
