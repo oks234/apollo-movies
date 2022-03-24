@@ -1,6 +1,6 @@
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Container, Main } from "../components/styled";
 import Header from "../components/Header";
@@ -16,6 +16,7 @@ const GET_MOVIE = gql`
       description_intro
       rating
       language
+      year
       isLiked @client
     }
     suggestions(id: $id) {
@@ -62,25 +63,25 @@ function Detail() {
 
   return (
     <Container>
-      <Header title="Apollo Movies" />
+      <Header title="Apollo Movies">
+        <Link to={"/"}>Home</Link>
+      </Header>
       <Main>
-        {!loading && (
-          <Content>
-            <Title>{data?.movie?.title}</Title>
-            <Subtitle>English &bull; {data?.movie?.rating}</Subtitle>
-            <Description>{data?.movie?.description_intro}</Description>
-            {/* <div>
+        {loading ? (
+          <Loading type={"spinningBubbles"} size={60} />
+        ) : (
+          <>
+            <Content>
+              <Title>{data?.movie?.title}</Title>
+              <Subtitle>English &bull; {data?.movie?.rating}</Subtitle>
+              <Description>{data?.movie?.description_intro}</Description>
+              {/* <div>
               <LikeButton id={data?.id} isLiked={data?.isLiked} />
             </div> */}
-          </Content>
+            </Content>
+            <Poster src={data?.movie?.medium_cover_image} alt={data?.movie?.title} />
+          </>
         )}
-        {!loading && (
-          <Poster
-            src={data?.movie?.medium_cover_image}
-            alt={data?.movie?.title}
-          />
-        )}
-        {loading && <Loading type={"spinningBubbles"} size={60} />}
       </Main>
     </Container>
   );

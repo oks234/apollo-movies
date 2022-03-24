@@ -4,7 +4,7 @@ import styled from "styled-components";
 import LikeButton from "./LikeButton";
 
 const Container = styled.div`
-  padding: 8px;
+  /* padding: 8px; */
   font-size: 0;
 `;
 

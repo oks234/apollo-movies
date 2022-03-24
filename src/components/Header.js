@@ -1,9 +1,11 @@
 import { Header as StyledHeader, Title } from "./styled";
 
-const Header = ({ title }) => {
+const Header = (props) => {
+  console.log(props);
   return (
     <StyledHeader>
-      <Title>{title}</Title>
+      <Title>{props.title}</Title>
+      {props.children ? props.children : null}
     </StyledHeader>
   );
 };
